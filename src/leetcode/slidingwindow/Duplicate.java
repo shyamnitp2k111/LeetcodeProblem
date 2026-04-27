@@ -1,36 +1,53 @@
 package leetcode.slidingwindow;
 
-import java.util.HashSet;
-import java.util.Set;
 
 public class Duplicate {
 
     public static void main(String[] args) {
 
         int[] nums = {1,2,3,1};
-        boolean results = containsNearbyDuplicate(nums, 3);
+        int results = findLHS(nums);
         System.out.println(results);
     }
 
-    public static boolean containsNearbyDuplicate(int[] nums, int k) {
-        Set<Integer> set = new HashSet<>();
+    public static int findLHS(int[] nums) {
 
-        for(int index = 0 ; index <= k && index <= nums.length; index++) {
-            if(!set.add(nums[index])){
-                return true;
-            }
+        if(nums.length<=1){
+            return 0;
         }
+
         int left = 0;
-        int right = k+1;
-        while (right < nums.length) {
-            set.remove(nums[left]);
-            if(!set.add(nums[right])){
-                return true;
-            }
-            right +=1;
-            left +=1;
-        }
+        int right = 1;
 
-        return false;
+        int min = Math.min(nums[left], nums[right]);
+        int max = Math.max(nums[left], nums[right]);
+
+        int lengthOfSubArray = 0;
+
+        int diff;
+
+        while (left < right && right < nums.length) {
+
+            diff = Math.abs(nums[left] - nums[right]);
+
+            if( diff > 1) {
+                left = right;
+                right ++;
+            } else if( diff == 1 ) {
+                right ++;
+
+                while ( right < nums.length) {
+                    if(nums[right] >=min && nums[right]  <= max) {
+                        lengthOfSubArray++;
+                        right++;
+                    } else {
+                        left = right;
+                        right++;
+                        break;
+                    }
+                }
+            }
+        }
+        return lengthOfSubArray;
     }
 }
