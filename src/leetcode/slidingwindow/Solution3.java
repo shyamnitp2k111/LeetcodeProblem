@@ -1,10 +1,14 @@
-import java.util.*;
-import java.util.stream.Collectors;
+package leetcode.slidingwindow;
 
-class Solution {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class Solution3 {
 
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Solution3 solution = new Solution3();
         List<Integer> result = solution.partitionLabels("caedbdedda");
 
         System.out.println(result);
