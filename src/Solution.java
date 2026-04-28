@@ -5,38 +5,39 @@ class Solution {
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int[][] result = solution.onesMinusZeros(new int[][]{{}});
+        List<Integer> result = solution.partitionLabels("caedbdedda");
+
+        System.out.println(result);
     }
 
+    public List<Integer> partitionLabels(String s) {
 
-    public int[][] onesMinusZeros(int[][] grid) {
+        Map<Character, Integer> map = new HashMap<>();
 
-        int rows = grid.length;
-        int cols = grid[0].length;
-        int[][] results = new int[rows][cols];
-        Map<String, Integer> map = new HashMap<>();
-
-        for(int row = 0 ; row < rows; row++) {
-            int sumRow = 0;
-            int sumCol = 0;
-            for(int col = 0; col < cols; col++) {
-                 sumRow += grid[row][col];
-
-                 sumCol += grid[col][row];
-            }
-
-            map.put("row-"+row, sumRow);
-            map.put("col-"+row, sumCol);
-        }
-
-
-        for(int row = 0 ; row < row; row++) {
-            for (int col = 0; col < cols; col++) {
-                results[row][col] = map.get("row-"+row) + map.get("col-"+col)
-                        - (row - map.get("row-"+row)) -  (cols - map.get("col-"+col));
+        for(int index = s.length()-1 ; index >= 0; index--) {
+            if(!map.containsKey(s.charAt(index))) {
+                map.put(s.charAt(index), index);
             }
         }
+
+        List<Integer> results = new ArrayList<>();
+
+        int lastIndex = -1;
+        int prev = -1;
+        for(int index = 0 ; index< s.length(); index++) {
+
+            lastIndex = Math.max(map.get(s.charAt(index)), lastIndex);
+            if(index == lastIndex) {
+                if(prev == -1) {
+                    results.add(index + 1);
+                } else {
+                    results.add(index - prev);
+                }
+                prev = index;
+                lastIndex = -1;
+            }
+        }
+
         return results;
-
     }
 }
