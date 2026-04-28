@@ -3,6 +3,7 @@ package companyinterview;
 public class CodeInterview {
     public static void main(String[] args) {
 
+        //wissen
         int[] array = {1,2,0};
 
         int max = Math.max(array[0], array[1]);
