@@ -4,57 +4,31 @@ class Solution4 {
 
     public static void main(String[] args) {
         Solution4 solution4 = new Solution4();
-        solution4.nextPermutation(new int[]{1,2,3});
+        solution4.sortColors(new int[]{2,0,2,1,1,0});
     }
 
 
-    public void nextPermutation(int[] nums) {
+    public void sortColors(int[] nums) {
+        int[] bucket = new int[3];
 
-        int in = -1;
-        for(int index = nums.length - 2; index >=0 ; index--) {
-            if(nums[index] < nums[index+1]){
-                in = index;
-                break;
+
+        for (int num : nums) {
+            bucket[num]++;
+        }
+
+        int in = 0;
+        for(int index = 0; index < bucket.length; index++) {
+            int val = bucket[index];
+
+            while (val > 0) {
+                nums[in++] = index;
+                val--;
             }
         }
 
 
-        // 2. if no pivot → reverse whole array
-        if (in == -1) {
-            reverse(nums, 0, nums.length - 1);
-            return;
-        }
-
-
-        // 3. find smallest greater element from right
-        int secondIndex = -1;
-        for (int index = nums.length - 1; index > in; index--) {
-            if (nums[index] > nums[in]) {
-                secondIndex = index;
-                break;
-            }
-        }
-
-
-        if(secondIndex == -1) return;
-
-        int temp = nums[in];
-        nums[in] = nums[secondIndex];
-        nums[secondIndex] = temp;
-
-
-        Arrays.sort(nums, in + 1, nums.length -1);
-
-        Arrays.stream(nums).forEach(System.out::println);
-    }
-
-    private void reverse(int[] nums, int left, int right) {
-        while (left < right) {
-            int temp = nums[left];
-            nums[left] = nums[right];
-            nums[right] = temp;
-            left++;
-            right--;
+        for(int index = 0 ; index < nums.length; index++) {
+            System.out.println(nums[index]);
         }
     }
 }
