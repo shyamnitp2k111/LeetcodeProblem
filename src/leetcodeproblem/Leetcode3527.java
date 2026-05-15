@@ -1,39 +1,49 @@
 package leetcodeproblem;
 
-import java.util.Arrays;
+import java.util.*;
 
-public class Leetcode905 {
+public class Leetcode3527 {
 
     public static void main(String[] args) {
-        Leetcode905 leetcode905 = new Leetcode905();
-        int[] results = leetcode905.sortArrayByParity(new int[]{3,1,2,4});
+        Leetcode3527 leetcode3527 = new Leetcode3527();
 
-        Arrays.stream(results).forEach(System.out::println);
+        List<List<String>> responses = new ArrayList<>();
+        List<String> list = List.of("good","ok","good","ok");
+        responses.add(list);
+        list = List.of("ok","bad","good","ok","ok");
+        responses.add(list);
+
+        List<String> list2 = List.of("good");
+        responses.add(list2);
+        List<String> list3 = List.of("bad");
+        responses.add(list3);
+
+        String results = leetcode3527.findCommonResponse(responses);
+
+        System.out.println("results is "+ results);
     }
 
 
-    public int[] sortArrayByParity(int[] nums) {
+    public String findCommonResponse(List<List<String>> responses) {
 
-        int left = 0;
-        int right = nums.length - 1;
+        Map<String, Integer> map = new TreeMap<>();
+        for(List<String> response : responses) {
+            Set<String> set = new HashSet<>(response);
 
-        while (left < right) {
-            if(nums[left] % 2 != 0 && nums[right] % 2 == 0) {
-                int temp = nums[left];
-                nums[left] = nums[right];
-                nums[right] = temp;
-                left++;
-                right--;
-            } else if(nums[left] % 2 == 0) {
-                left++;
-            } else if(nums[right] % 2 != 0) {
-                right--;
-            } else {
-                left++;
-                right--;
+            for(String str : set) {
+                map.put(str, map.getOrDefault(str, 0) + 1);
             }
         }
 
-        return nums;
+        String answer = null;
+        int maxValue = Integer.MIN_VALUE;
+
+        for( Map.Entry<String, Integer> entry : map.entrySet()) {
+            if( entry.getValue() > maxValue ) {
+                maxValue = entry.getValue();
+                answer = entry.getKey();
+            }
+        }
+        return answer;
     }
 }

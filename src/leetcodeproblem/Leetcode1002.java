@@ -1,51 +1,51 @@
 package leetcodeproblem;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class Leetcode3527 {
+public class Leetcode1002 {
 
     public static void main(String[] args) {
-        Leetcode3527 leetcode3527 = new Leetcode3527();
+        Leetcode1002 leetcode1002 = new Leetcode1002();
+        List<String> answer = leetcode1002.commonChars(new String[]{"bella","label","roller"});
 
-        List<List<String>> responses = new ArrayList<>();
-        List<String> list = List.of("good","ok","good","ok");
-        responses.add(list);
-        list = List.of("ok","bad","good","ok","ok");
-        responses.add(list);
-
-        responses.stream().forEach(System.out::println);
-
-        List<String> list2 = List.of("good");
-        responses.add(list2);
-        List<String> list3 = List.of("bad");
-        responses.add(list3);
-
-        String results = leetcode3527.findCommonResponse(responses);
-
-        System.out.println("results is "+ results);
+        answer.forEach(System.out::println);
     }
 
 
-    public String findCommonResponse(List<List<String>> responses) {
+    public List<String> commonChars(String[] words) {
+        List<String> list = new ArrayList<>();
+        Map<Character, Integer> map = new ConcurrentHashMap<>();
 
-        Map<String, Integer> map = new TreeMap<>();
-        for(List<String> response : responses) {
-            Set<String> set = new HashSet<>(response);
+        String word = words[0];
 
-            for(String str : set) {
-                map.put(str, map.getOrDefault(str, 0) + 1);
+        for (int index = 0; index < word.length(); index++) {
+            char ch = word.charAt(index);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+
+        for(int index = 1; index < words.length; index++){
+
+            word = words[index];
+
+            for(Map.Entry<Character, Integer> entry : map.entrySet()) {
+                if(!word.contains(entry.getKey().toString())) {
+                    map.remove(entry.getKey());
+                } else {
+                    long count = word.chars().filter(ch -> ch == entry.getKey()).count();
+                    map.put(entry.getKey(), (int) Math.min(entry.getValue(), count));
+                }
             }
         }
 
-        String answer = null;
-        int maxValue = Integer.MIN_VALUE;
+        for(Map.Entry<Character, Integer> entry : map.entrySet()) {
+            int val = entry.getValue();
 
-        for( Map.Entry<String, Integer> entry : map.entrySet()) {
-            if( entry.getValue() > maxValue ) {
-                maxValue = entry.getValue();
-                answer = entry.getKey();
+            while (val > 0) {
+                list.add(String.valueOf(entry.getKey()));
+                val--;
             }
         }
-        return answer;
+        return list;
     }
 }
