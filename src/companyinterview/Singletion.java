@@ -1,3 +1,5 @@
+package companyinterview;
+
 public final class Singletion {
 
     final int id;
