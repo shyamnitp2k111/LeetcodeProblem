@@ -1,4 +1,4 @@
-package companyinterview.salesforces;
+package companyinterview.salesforce;
 
 public class LoadingClass {
 
