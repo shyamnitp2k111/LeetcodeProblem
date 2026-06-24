@@ -54,8 +54,6 @@ To help you understand the requirements and test this new function, we have prov
 
 
 
-import org.junit.Test;
-
 import java.util.*;
 
 import static org.junit.Assert.assertFalse;
@@ -210,6 +208,7 @@ class Membership {
      */
 
     public Map<Integer, Double> getAverageWorkoutDurations() {
+
         Map<Integer, Double> result = new HashMap<>();
 
         for (Map.Entry<Integer, List<Workout>> entry : workMap.entrySet()) {
@@ -251,6 +250,42 @@ class Membership {
 
     public Map<Integer, Integer> getDuePayments() {
 
+
+        Map<Integer, Integer> paymentMap = new HashMap<>();
+        Map<MembershipStatus, FreeRule> freeRuleMap = new HashMap<>();
+        freeRuleMap.put(MembershipStatus.BRONZE, new FreeRule(1, 10));
+        freeRuleMap.put(MembershipStatus.SILVER, new FreeRule(3, 8));
+        freeRuleMap.put(MembershipStatus.GOLD, new FreeRule(5,6));
+
+        for(Member member : members) {
+
+            List<Workout> workoutList = workMap.getOrDefault(member.memberId, new ArrayList<>());
+
+            if(workoutList.isEmpty()) {
+                paymentMap.put(member.memberId, 0);
+                continue;
+            }
+
+            workoutList.sort(Comparator.comparing(Workout::getId));
+            FreeRule freeRule = freeRuleMap.get(member.membershipStatus);
+            int total = 0;
+
+            for(int index = freeRule.freeLimit; index < workoutList.size(); index++) {
+                int duration = (int) Math.ceil((double)workoutList.get(index).getDuration()/ 60);
+                total += duration * freeRule.rate;
+            }
+
+            paymentMap.put(member.memberId, total);
+        }
+
+        return paymentMap;
+
+
+
+
+
+
+/*
         Map<Integer, Integer> result = new HashMap<>();
 
         Map<MembershipStatus, FreeRule> ruleMap = new HashMap<>();
@@ -283,7 +318,7 @@ class Membership {
             result.put(memberId, total);
         }
 
-        return result;
+        return result;*/
     }
     public int calculateFees(int duration, int rate) {
         int hours = (duration + 59) / 60;
@@ -308,20 +343,19 @@ class MembershipStatistics {
     }
 }
 
-public class GymLatest {
+public class Gym {
     /*
         This is not a complete test suite, but tests some basic functionality of
         the code and shows how to use it.
     */
-    //public static void main(String[] args) {
-    //  testMember();
-    //  testMembership();
-    //  testGetAverageWorkoutDurations();
-    //  testGetDuePayments();
-    //  }
+    public static void main(String[] args) {
+      testMember();
+      testMembership();
+      testGetAverageWorkoutDurations();
+      testGetDuePayments();
+    }
 
-    @Test
-    public void testMember() {
+    public static void testMember() {
         System.out.println("Running testMember");
         Member testMember = new Member(1, "John Doe", MembershipStatus.BRONZE);
         assert testMember.memberId == 1 :
@@ -332,8 +366,8 @@ public class GymLatest {
                 "Membership status should be BRONZE, was " + testMember.membershipStatus;
     }
 
-    @Test
-    public void testMembership() {
+
+    public static void testMembership() {
         System.out.println("Running testMembership");
         Membership testMembership = new Membership();
         Member testMember = new Member(1, "John Doe", MembershipStatus.BRONZE);
@@ -371,8 +405,8 @@ public class GymLatest {
                 "Conversion rate should be 66.67, was " + attendanceStats.conversionRate;
     }
 
-    @Test
-    public void testGetAverageWorkoutDurations() {
+
+    public static void testGetAverageWorkoutDurations() {
         System.out.println("Running testGetAverageWorkoutDurations");
         Membership testMembership = new Membership();
         Member testMember1 = new Member(12, "John Doe", MembershipStatus.SILVER);
@@ -415,8 +449,7 @@ public class GymLatest {
         assertFalse(averageDurations.containsKey(4));
     }
 
-    @Test
-    public void testGetDuePayments() {
+    public static void testGetDuePayments() {
         System.out.println("Running testGetDuePayments");
         // Test get_due_payments function
         Membership testMembership = new Membership();
