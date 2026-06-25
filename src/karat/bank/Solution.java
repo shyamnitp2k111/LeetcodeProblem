@@ -189,7 +189,13 @@ class TransactionMonitor {
 
     public boolean detectLargeWithdrawalPattern(String accountNumber) {
       
-         return transactions.stream().filter(t -> t.account.accountNumber.equals(accountNumber) && t.type.equals("Withdrawal")).filter(t -> t.amount >= 5000).collect(Collectors.groupingBy(t -> t.date.substring(0, t.date.lastIndexOf("-")), Collectors.counting())).values().stream().anyMatch(i -> i >=3);
+         return transactions.stream().
+                 filter(t -> t.account.accountNumber.equals(accountNumber) && t.type.equals("Withdrawal"))
+                 .filter(t -> t.amount >= 5000)
+                 .collect(Collectors.groupingBy(t -> t.date.substring(0, t.date.lastIndexOf("-")), Collectors.counting()))
+                 .values()
+                 .stream()
+                 .anyMatch(i -> i >=3);
     }
 
 /*    public boolean detectLargeWithdrawalPattern(String accountNumber) {
