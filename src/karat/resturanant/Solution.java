@@ -173,7 +173,7 @@ public class Solution {
         testGetPeakHour();
     }
 
-@Test
+
     public static void testOrder() {
         System.out.println("Running testOrder");
         MenuItem item1 = new MenuItem("M001", "Burger", "Main Course", 12.99);
@@ -187,7 +187,6 @@ public class Solution {
     }
 
 
-@Test
     public static void testOrderHistory() {
         System.out.println("Running testOrderHistory");
         OrderHistory history = new OrderHistory();
@@ -216,7 +215,7 @@ public class Solution {
         Assert.assertEquals(2, history.getOrderCountByCategory("Main Course"));
     }
 
-@Test
+
     public static void testGetPeakHour() {
         System.out.println("Running testGetPeakHour");
         OrderHistory history = new OrderHistory();
