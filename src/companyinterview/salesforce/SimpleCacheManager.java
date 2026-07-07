@@ -1,5 +1,5 @@
 package companyinterview.salesforce;
-                                                                                                                                                                       
+
 /*  import com.google.common.cache.*;
   import java.util.*;                                                                                                                                                  
   import java.util.concurrent.*;                            
@@ -9,6 +9,7 @@ package companyinterview.salesforce;
    * Simple Cache Manager using Guava Cache
    * This is a basic implementation with some subtle issues for discussion
    */
+
   /*public class SimpleCacheManager {
 
       // Basic Guava Cache with some reasonable defaults
@@ -87,3 +88,7 @@ package companyinterview.salesforce;
 
   }
 */
+
+public class SimpleCacheManager {
+
+}

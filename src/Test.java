@@ -14,3 +14,7 @@ public class Test {
     }
 
 }
+
+class Employee {
+    private int val;
+}
