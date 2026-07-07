@@ -100,7 +100,7 @@ class OrderStats {
 
 class OrderManager {
   List<Order> orders;
-    Map<Integer, List<Delivery>> deliveriesByOrderId;
+  Map<Integer, List<Delivery>> deliveriesByOrderId;
 
   OrderManager() {
     this.orders = new ArrayList<>();
