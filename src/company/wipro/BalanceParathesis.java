@@ -80,7 +80,6 @@ public class BalanceParathesis {
 
             char current = input.charAt(index);
 
-
             // Closing bracket
             if (bracketMap.containsKey(current)) {
 
@@ -93,9 +92,7 @@ public class BalanceParathesis {
                 if (top != bracketMap.get(current)) {
                     return false;
                 }
-
             } else {
-
                 // Opening bracket
                 stack.push(current);
             }
