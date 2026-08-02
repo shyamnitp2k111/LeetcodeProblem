@@ -67,7 +67,7 @@ public class Wissen_2 {
 
     static int getMissingNumber(int[] input) {
 
-        int n = Arrays.stream(input).max().orElse(-1);
+        int n =  input.length + 1;
         int sumOfNutualNumber = n * ((n + 1)/2);
         int sum = Arrays.stream(input).sum();
         return sumOfNutualNumber - sum;
