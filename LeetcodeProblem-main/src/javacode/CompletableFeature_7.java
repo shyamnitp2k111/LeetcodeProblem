@@ -32,8 +32,6 @@ public class CompletableFeature_7 {
 
     static void main() {
         Add add = new Add();
-        System.out.println("shyam");
-        System.out.println("shyam");
 
         CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> add.add(1));  // 1 + 2 = 3
         CompletableFuture<Integer> completableFutureResult = completableFuture
