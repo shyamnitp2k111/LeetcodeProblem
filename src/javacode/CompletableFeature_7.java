@@ -45,6 +45,8 @@ public class CompletableFeature_7 {
 class Add {
     public int add(int x){
         System.out.println("value " + x);
+        System.out.println("end ");
         return x + 2;
+
     }
 }
