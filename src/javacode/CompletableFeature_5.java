@@ -38,6 +38,8 @@ public class CompletableFeature_5 {
         APIClass2 thirdPartyAPI = new APIClass2();
         CompletableFuture<Integer> completableFuture1 = CompletableFuture.supplyAsync(thirdPartyAPI::m1);
 
+
+        // thenCompose() → Chain two dependent futures.
         CompletableFuture<Integer> dependencyResult  = completableFuture1
                 .thenCompose(x -> CompletableFuture.supplyAsync(() -> thirdPartyAPI.m2(x)));
 

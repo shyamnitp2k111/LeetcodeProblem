@@ -33,7 +33,7 @@ Integer Cache Range:
             ==     → Reference comparison
     equals → Value comparison
 
-    company.wissen.Interview Rule:
+    company.wissen.company.Interview Rule:
 
     Never use == to compare wrapper classes (Integer, Long, Double, etc.).
     Use equals() (or Objects.equals() if null is possible).
