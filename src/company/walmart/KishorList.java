@@ -57,7 +57,7 @@ public class KishorList<T> {
 
 }
 
-class Main{
+class Mains{
     static void main() {
         KishorList<Integer> kishorList = new KishorList<>(10);
         kishorList.add(11);

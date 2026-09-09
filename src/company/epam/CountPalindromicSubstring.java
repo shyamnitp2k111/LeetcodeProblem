@@ -3,7 +3,7 @@ package company.epam;
 
 /*
 
-Leetcode - 647
+leetcodeproblem.Leetcode - 647
 
 Given a string s, return the number of palindromic substrings in it.
 
